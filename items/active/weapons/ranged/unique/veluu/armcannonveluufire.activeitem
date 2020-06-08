@@ -9,7 +9,7 @@
   "shortdescription" : "Veluuish Burner",
   "level" : 2,
   "category" : "armcannon",
-  "itemTags" : ["weapon","ranged","upgradeableWeapon", "armcannon"],
+  "itemTags" : ["weapon","ranged","upgradeableWeapon", "armcannon","fire","veluu"],
   "tooltipKind" : "gun2",
   "twoHanded" : false,
   "animation" : "/items/active/weapons/ranged/unique/fugun.animation",
@@ -53,7 +53,7 @@
     "projectileParameters" : {
       "speed" : 40,
       "knockback" : 3,
-      "damageSourceKind" : "fire",
+      "damageKind" : "fire",
       "statusEffects" : [ "burning" ]
     },
     "stances" : {

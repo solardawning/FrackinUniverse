@@ -21,15 +21,16 @@ end
 
 function update(dt)
 	if not checkSetWorn(self.setBonusCheck) then
+		status.removeEphemeralEffect("thorns")
 		effect.expire()
 	else
+		status.addEphemeralEffect("thorns")
 		checkWeapons()
 	end
 
 end
 
-function 
-	checkWeapons()
+function checkWeapons()
 	local weapons=weaponCheck({"fist"})
 	if weapons["either"] then
 		effect.setStatModifierGroup(effectHandlerList.weaponBonusHandle,weaponBonus)

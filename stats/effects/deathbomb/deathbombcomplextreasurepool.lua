@@ -1,6 +1,7 @@
 require "/scripts/util.lua"
 
 function init()
+	if not world.entityType(entity.id()) then return end
 	canExplode=false
 	if (status.resourceMax("health") < config.getParameter("minMaxHealth", 0)) or (not world.entityExists(entity.id())) or ((world.entityType(entity.id())== "monster") and (world.callScriptedEntity(entity.id(),"getClass") == 'bee')) then
 		return
@@ -8,6 +9,7 @@ function init()
 	poolData=config.getParameter("poolData")
 	entType=world.entityType(entity.id())
 	if poolData then
+		if not blocker then blocker=config.getParameter("blocker","deathbombcomplextreasurepool") end
 		if entType=="monster" then
 			local minBaseHealth=config.getParameter("minBaseHealth",10)
 			local eConfig=root.monsterParameters(world.entityTypeName(entity.id()))
@@ -29,10 +31,12 @@ function init()
 	else
 		sb.logInfo("deathbombcomplextreasurepool: missing pool data on status effect!")
 	end
+	self.didInit=true
 end
 
 function update(dt)
-	if canExplode and not status.resourcePositive("health") and not (status.stat("deathbombDud") > 0) then
+	if not self.didInit then init() end
+	if canExplode and (status.resourcePercentage("health") <= 0.05) and not status.statPositive("deathbombDud") then
 		explode()
 	end
 end
@@ -41,9 +45,11 @@ function uninit()
 end
 
 function explode()
+	if not blocker then blocker=config.getParameter("blocker","deathbombcomplextreasurepool") end
 	if not exploded then
-		if poolData then
+		if not status.statPositive(blocker) and poolData then
 			local stub=poolData[entType] and poolData[entType][subType] or poolData[entType] and poolData[entType]["default"] or poolData["default"]
+			status.addPersistentEffect(blocker,{stat=blocker,amount=1})
 			world.spawnTreasure(entity.position(),stub,world.threatLevel())
 		end
 		canExplode=false

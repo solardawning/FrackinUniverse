@@ -1,4 +1,13 @@
 {
+  "pestTreasure" : [
+    [1, {
+      "fill" : [
+        {"item" : "fupest"}
+      ],
+      "allowDuplication" : false
+    }]
+  ],
+
   "brokenMechLoot" : [
       [0, {
         "pool" : [
@@ -959,6 +968,7 @@
   "fuRareOre" : [
     [0, {
       "pool" : [
+        {"weight" : 0.50, "item" : ["fuMadnessVoxelItem", 1]},
         {"weight" : 0.05, "item" : ["isogenbar", 1]},
         {"weight" : 0.06, "item" : ["pyreitebar", 1]},
         {"weight" : 0.005, "item" : ["aetheriumalloy", 1]},
@@ -1010,7 +1020,6 @@
           {"weight" : 0.333, "item" : [ "stickofram", 1]},
           {"weight" : 0.333, "item" : [ "venomsample", 1]},
           {"weight" : 0.0333, "item" : [ "fuscienceresource", 5]},
-          {"weight" : 0.085, "item" : [ "laboil", 1]},
           {"weight" : 0.0211, "item" : [ "koaniteore", 9]},
           {"weight" : 0.0211, "item" : [ "volatilepowder", 9]},
           {"weight" : 0.0211, "item" : [ "magnesiumore", 9]},
@@ -1121,6 +1130,7 @@
       "pool" : [
         {"weight" : 0.008, "item" : [ "ultrastim", 1]},
         {"weight" : 0.005, "item" : [ "thesauce", 1]},
+        {"weight" : 0.04, "item" : [ "antipsychotics", 1]},
         {"weight" : 0.01, "item" : [ "powderednarcotics", 1]},
         {"weight" : 0.01, "item" : [ "myphisinjector", 1]},
         {"weight" : 0.01, "item" : [ "shieldpatch", 1]},
@@ -2012,7 +2022,7 @@
         {"weight" : 0.035, "item" : ["cuteshortsword-recipe", 1]},
         {"weight" : 0.035, "item" : ["cutespear-recipe", 1]},
         {"weight" : 0.035, "item" : ["cutestaff-recipe", 1]},
-        {"weight" : 0.035, "item" : ["cuterevolver-recipe", 1]},
+        {"weight" : 0.035, "item" : ["cutepistol-recipe", 1]},
         {"weight" : 0.035, "item" : ["cuteshotgun-recipe", 1]},
         {"weight" : 0.035, "item" : ["cutestaff-recipe", 1]},
         {"weight" : 0.035, "item" : ["cutewhip-recipe", 1]}

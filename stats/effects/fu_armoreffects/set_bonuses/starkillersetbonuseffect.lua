@@ -1,13 +1,21 @@
 require "/stats/effects/fu_armoreffects/setbonuses_common.lua"
 
 armorBonus={
-   { stat = "maxHealth", baseMultiplier = 1.25},
-   { stat = "maxEnergy", baseMultiplier = 1.25},
+   { stat = "maxHealth", effectiveMultiplier = 1.25},
+   { stat = "maxEnergy", effectiveMultiplier = 1.25},
    { stat = "powerMultiplier", effectiveMultiplier = 1.25},
    { stat = "protection", effectiveMultiplier = 1.25}
 }
 
-armorEffect={}
+armorEffect={
+	{stat="breathProtection",amount= 1},
+	{stat= "extremepressureProtection",amount= 1},
+	{stat= "waterbreathProtection",amount= 1},
+	{stat = "fumudslowImmunity", amount = 1},
+	{stat = "slimestickImmunity", amount = 1},
+	{stat = "iceslipImmunity", amount = 1},
+	{stat = "snowslowImmunity", amount = 1}
+}
 
 setName="fu_starkillerset"
 
@@ -30,7 +38,7 @@ end
 
 
 function daytimeCheck()
-	return world.timeOfDay() < 0.5 -- true if daytime
+	return world.timeOfDay() < 0.5
 end
 
 function undergroundCheck()

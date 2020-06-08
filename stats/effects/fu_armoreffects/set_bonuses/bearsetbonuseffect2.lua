@@ -27,12 +27,8 @@ function update(dt)
 	end
 end
 
---[[function checkArmor()--commented out because if it gets called, it will error. level needs to be set in the update block, before calling this function
-	effect.setStatModifierGroup( effectHandlerList.armorBonusHandle,setBonusMultiply(armorBonus,level))
-end]]
-
 function checkWeapons()
-local weaponSword=weaponCheck({ "axe", "hammer", "broadsword", "spear" })
+	local weaponSword=weaponCheck({ "axe", "hammer", "broadsword", "spear","quarterstaff","daikatana" })
 
 	if weaponSword["either"] then
 		effect.setStatModifierGroup(effectHandlerList.weaponBonusHandle,weaponBonus)

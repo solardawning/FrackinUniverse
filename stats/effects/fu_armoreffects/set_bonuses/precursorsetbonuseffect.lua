@@ -5,9 +5,9 @@ weaponBonus={
 }
 
 armorBonus={
-	{stat = "critChance", amount = 5},
-	{stat = "asteroidImmunity", amount = 1},
 	{stat = "breathProtection", amount = 1},
+	{stat = "critChance", amount = 5},
+	{stat = "pressureProtection", amount = 1},
 	{stat = "extremepressureProtection", amount = 1}
 }
 
@@ -28,7 +28,6 @@ function update(dt)
 	if not checkSetWorn(self.setBonusCheck) then
 		effect.expire()
 	else
-		--status.addEphemeralEffect("gravgenfieldarmor2",5)
 		checkWeapons()
 	end	
 

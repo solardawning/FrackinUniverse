@@ -5,10 +5,6 @@ weaponBonus={
 	{stat = "critChance", amount = 2}
 }
 
-armorBonus={
-
-}
-
 armorEffect={
 	{stat = "breathProtection", amount = 1.0},
 	{stat = "gasImmunity", amount = 1.0},
@@ -26,7 +22,6 @@ function init()
 	effectHandlerList.weaponBonusHandle=effect.addStatModifierGroup({})
 	effectHandlerList.armorBonusHandle=effect.addStatModifierGroup({})
 	checkWeapons()
-	--sb.logInfo(sb.printJson(weapons))
 end
 
 function update(dt)
@@ -35,7 +30,6 @@ function update(dt)
 	else
 		checkWeapons()
 	end
-	--sb.logInfo(sb.printJson(weapons))
 	mcontroller.controlModifiers({
 		airJumpModifier = 1.2
 	})

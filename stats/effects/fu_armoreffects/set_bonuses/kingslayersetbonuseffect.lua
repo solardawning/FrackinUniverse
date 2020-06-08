@@ -5,7 +5,7 @@ weaponBonus={
 }
 
 armorEffect={
-	{stat = "maxHealth", baseMultiplier = 1.12},
+	{stat = "maxHealth", effectiveMultiplier = 1.12},
 	{stat = "sulphuricImmunity", amount = 1},
 	{stat = "breathProtection", amount = 1}
 }
@@ -29,8 +29,7 @@ function update(dt)
 	end
 end
 
-function 
-	checkWeapons()
+function checkWeapons()
 	local weapons=weaponCheck({"dagger","broadsword","axe","hammer","shortsword","greataxe","spear","shortspear","quarterstaff"})
 	
 	if (weapons["twoHanded"] and weapons["either"]) or (weapons["primary"] and weapons["alt"]) then

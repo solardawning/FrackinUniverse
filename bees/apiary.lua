@@ -17,16 +17,6 @@ require "/scripts/kheAA/transferUtil.lua"
 
 --[[	Misc.
 
-	beeSubtypeIDs = {
-		plasterer = {"isovapitdae", "harlequin", "shrouded", "stellar","cybernetic"},
-		sweat = {"xenodaemonae", "redbanded", "assassin", "reaper"},
-		leafcutter = {"tunguskudae", "sandprowler", "goldensaint"},
-		carpenter = {"artisan", "carpenter", "inventor", "scoria","crystalwing"},
-		squash = {"cuckoo", "loamzipper", "stalwart", "rimewing"},
-		honey = {"honey", "exspiravit", "bumblebee", "orchid"},
-		mason = {"gelidBurrower", "digger", "oremason","aquarum","devoratrix"}  
-	}
-
 	Progress increases by the bees production stat multiplied by the hives production efficiency with a small random factor which applies for each product separetly
 	Same applies to the queens production as well, but does not take drones into account
 	Full formula:
@@ -41,7 +31,6 @@ require "/scripts/kheAA/transferUtil.lua"
 --]]
 
 --]]
-
 
 queen = nil			-- Contains the queen or nil if there's no queen
 hivesAroundHive = 0		-- Active hives around the hive
@@ -92,69 +81,80 @@ specialFrameFunctions = {
 	end,
 	antimiteFrame = function(data)
 		self.randAmount = math.random(1,8)
-		if not antimiteFrameTimer then
-			antimiteFrameTimer = data[1]
-		elseif antimiteFrameTimer <= 0 then
-			--world.spawnItem("vmite",entity.position(),self.randAmount)
-			antimiteFrameTimer = math.random(100,540)
-		else
-			antimiteFrameTimer = antimiteFrameTimer - beeTickDelta
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not antimiteFrameTimer then
+				antimiteFrameTimer = data[1]
+			elseif antimiteFrameTimer <= 0 then
+				antimiteFrameTimer = math.random(100,540)
+			else
+				antimiteFrameTimer = antimiteFrameTimer - beeTickDelta
+			end		
 		end
 	end,
 	copperFrame = function(data)
 	        self.randAmount = math.random(1,2)
-		if not ironFrameTimer then
-			ironFrameTimer = data[1]
-		elseif ironFrameTimer <= 0 then
-			world.spawnItem("copperore",entity.position(),self.randAmount) 
-			ironFrameTimer = math.random(100,540)
-		else
-			ironFrameTimer = ironFrameTimer - beeTickDelta
-		end
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not ironFrameTimer then
+				ironFrameTimer = data[1]
+			elseif ironFrameTimer <= 0 then
+				world.spawnItem("copperore",entity.position(),self.randAmount) 
+				ironFrameTimer = math.random(100,540)
+			else
+				ironFrameTimer = ironFrameTimer - beeTickDelta
+			end		
+		end	        
 	end,
 	ironFrame = function(data)
 	        self.randAmount = math.random(1,2)
-		if not ironFrameTimer then
-			ironFrameTimer = data[1]
-		elseif ironFrameTimer <= 0 then
-			world.spawnItem("ironore",entity.position(),self.randAmount) 
-			ironFrameTimer = math.random(100,540)
-		else
-			ironFrameTimer = ironFrameTimer - beeTickDelta
-		end
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not ironFrameTimer then
+				ironFrameTimer = data[1]
+			elseif ironFrameTimer <= 0 then
+				world.spawnItem("ironore",entity.position(),self.randAmount) 
+				ironFrameTimer = math.random(100,540)
+			else
+				ironFrameTimer = ironFrameTimer - beeTickDelta
+			end		
+		end	        
 	end,
 	tungstenFrame = function(data)
 	        self.randAmount = math.random(1,2)
-		if not ironFrameTimer then
-			ironFrameTimer = data[1]
-		elseif ironFrameTimer <= 0 then
-			world.spawnItem("tungstenore",entity.position(),self.randAmount) 
-			ironFrameTimer = math.random(100,540)
-		else
-			ironFrameTimer = ironFrameTimer - beeTickDelta
-		end
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not ironFrameTimer then
+				ironFrameTimer = data[1]
+			elseif ironFrameTimer <= 0 then
+				world.spawnItem("tungstenore",entity.position(),self.randAmount) 
+				ironFrameTimer = math.random(100,540)
+			else
+				ironFrameTimer = ironFrameTimer - beeTickDelta
+			end		
+		end	        
 	end,
 	titaniumFrame = function(data)
 	        self.randAmount = math.random(1,2)
-		if not ironFrameTimer then
-			ironFrameTimer = data[1]
-		elseif ironFrameTimer <= 0 then
-			world.spawnItem("titaniumore",entity.position(),self.randAmount) 
-			ironFrameTimer = math.random(100,540)
-		else
-			ironFrameTimer = ironFrameTimer - beeTickDelta
-		end
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not ironFrameTimer then
+				ironFrameTimer = data[1]
+			elseif ironFrameTimer <= 0 then
+				world.spawnItem("titaniumore",entity.position(),self.randAmount) 
+				ironFrameTimer = math.random(100,540)
+			else
+				ironFrameTimer = ironFrameTimer - beeTickDelta
+			end		
+		end	        
 	end,
 	durasteelFrame = function(data)
 	        self.randAmount = math.random(1,2)
-		if not ironFrameTimer then
-			ironFrameTimer = data[1]
-		elseif ironFrameTimer <= 0 then
-			world.spawnItem("durasteelore",entity.position(),self.randAmount) 
-			ironFrameTimer = math.random(100,540)
-		else
-			ironFrameTimer = ironFrameTimer - beeTickDelta
-		end
+		if isHiveQueenActive(true) and areDronesActive() then
+			if not ironFrameTimer then
+				ironFrameTimer = data[1]
+			elseif ironFrameTimer <= 0 then
+				world.spawnItem("durasteelore",entity.position(),self.randAmount) 
+				ironFrameTimer = math.random(100,540)
+			else
+				ironFrameTimer = ironFrameTimer - beeTickDelta
+			end		
+		end	        
 	end		
 	
 }
@@ -167,7 +167,7 @@ oldLoadingState = nil
 -- Method to differentiate between apiaries and other objects
 function getClass() return "apiary" end
 
--- LET IT BEGIIIIIIIIIIIIN
+-- Begin script
 function init()
 	biome = world.type()
 	
@@ -204,6 +204,9 @@ function init()
 	
 	-- Init timer, and offset update delta to reduce potential lag spikes when they all update at the same time
 	beeUpdateTimer = beeData.beeUpdateInterval
+
+
+
 	local timerIncrement = config.getParameter("scriptDelta") * 0.01
 	
 	local sameTimers
@@ -689,20 +692,16 @@ end
 -- By default ages the queen by 1, but can use any other number or negative ones to make her last longer
 -- Can be called from other places (Like the frame scripts)
 function ageQueen(amount)
+	--if changing this, make sure it matches in beeBuilder.lua
+	local fullLifespan = genelib.statFromGenomeToValue(queen.parameters.genome, "queenLifespan") * 2.0
+
 	if not queen.parameters.lifespan or queen.parameters.lifespan < 0 then 
-	  queen.parameters.lifespan = 500 
+	  queen.parameters.lifespan = fullLifespan
 	end
-	
-	-- original
-	--queen.parameters.lifespan = queen.parameters.lifespan - (amount or 1)
-	--world.containerTakeAt(entity.id(), queenSlot-1)
-	
-	--updated
-	self.randQueenAge = math.random(0,1)  --kill queens half as fast as before
-	if self.randQueenAge == 1 then
-		queen.parameters.lifespan = queen.parameters.lifespan - (amount or 1)
-		world.containerTakeAt(entity.id(), queenSlot-1)	
-	end
+
+
+	queen.parameters.lifespan = queen.parameters.lifespan - (amount or 1)
+	world.containerTakeAt(entity.id(), queenSlot-1)	
 	
 	if (queen.parameters.lifespan > 0) then
 		world.containerPutItemsAt(entity.id(), queen, queenSlot-1)
@@ -788,7 +787,7 @@ function isDroneActive(drone)
 		return false
 	end
 	
-	-- Always active for simulated ticks. Whether anything actually ahppens is determined within the production function
+	-- Always active for simulated ticks. Whether anything actually happens is determined within the production function
 	if ticksToSimulate then return true end
 	
 	-- Get the worktime stat, and check if the drones should be active, taking work time modifying frames into account
@@ -1135,11 +1134,11 @@ function getFlowerLikeness(beeSubtype)
 		local stage = world.farmableStage(id)
 		if stage then
 			local stages = world.getObjectParameter(id, "stages", nil)
-			local linekessTable = world.getObjectParameter(id, "beeLikeness", nil)
+			local likenessTable = world.getObjectParameter(id, "beeLikeness", nil)
 			local addition = 0
 			
-			if linekessTable and linekessTable[beeSubtype] then
-				addition = linekessTable[beeSubtype]
+			if likenessTable and likenessTable[beeSubtype] then
+				addition = likenessTable[beeSubtype]
 			else
 				addition = beeData.flowerDefaultLikeness
 			end

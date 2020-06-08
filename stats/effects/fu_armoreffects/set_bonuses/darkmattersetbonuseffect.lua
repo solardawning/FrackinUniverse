@@ -3,7 +3,7 @@ require "/stats/effects/fu_armoreffects/setbonuses_common.lua"
 setName="fu_darkmatterset"
 
 armorBonus={
-	{stat = "critBonus", baseMultiplier = 1.5},
+	{stat = "critDamage", amount = 0.5},
 	{stat = "darknessImmunity", amount = 1}
 }
 
@@ -16,7 +16,6 @@ function update(dt)
 	if not checkSetWorn(self.setBonusCheck) then
 		effect.expire()
 	else
-		effect.setStatModifierGroup(effectHandlerList.armorBonusHandle,armorBonus)
-		status.modifyResourcePercentage("health", 0.004 * dt)
+		setRegen(0.004)
 	end
 end

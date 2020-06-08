@@ -7,13 +7,13 @@ weaponBonus={
 }
 
 armorBonus={
-	{stat = "fallDamageMultiplier", baseMultiplier = 0.12}
+	{stat = "fallDamageMultiplier", effectiveMultiplier = 0.88}
 }
 
 function init()
 	setSEBonusInit(setName)
 	effectHandlerList.weaponBonusHandle=effect.addStatModifierGroup({})
-			
+
 	checkWeapons()
 
 	effectHandlerList.armorBonusHandle=effect.addStatModifierGroup(armorBonus)
@@ -21,18 +21,17 @@ end
 
 function update(dt)
 	if not checkSetWorn(self.setBonusCheck) then
+		status.removeEphemeralEffect("glowyellow2")
 		effect.expire()
 	else
 		effect.setStatModifierGroup(effectHandlerList.armorBonusHandle,armorBonus)
-		checkWeapons()	
-		
-		status.modifyResourcePercentage("health", 0.0006 * dt)
-		
+		checkWeapons()
+		status.addEphemeralEffect("glowyellow2")
+		setRegen(0.006)
 	end
 end
 
-function 
-	checkWeapons()
+function checkWeapons()
 	local weapons=weaponCheck({"bioweapon"})
 	if weapons["either"] then
 		effect.setStatModifierGroup(effectHandlerList.weaponBonusHandle,weaponBonus)

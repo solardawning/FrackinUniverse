@@ -1,7 +1,12 @@
 require "/stats/effects/fu_armoreffects/setbonuses_common.lua"
+require "/scripts/unifiedGravMod.lua"
+
+setName="fu_spacefarerset2"
+
+weaponList={"mininglaser"}
 
 weaponBonus={
-	{stat = "powerMultiplier", baseMultiplier = 2.4}
+	{stat = "powerMultiplier", effectiveMultiplier = 2.4}
 }
 
 armorBonus={
@@ -12,8 +17,7 @@ armorBonus={
 	{stat = "pressureProtection", amount = 1},
 	{stat = "extremepressureProtection", amount = 1},		
 	{stat = "breathProtection", amount = 1},
-	{stat = "asteroidImmunity", amount = 1},
-        {stat = "defensetechBonus", amount = 0.5},
+	{stat = "defensetechBonus", amount = 0.5},
 }
 
 setName="fu_spacefarerset2"
@@ -27,13 +31,15 @@ function init()
 
 	checkWeapons()
 	effectHandlerList.armorBonusHandle=effect.addStatModifierGroup(armorBonus)
+
 end
 
 function update(dt)
 	if not checkSetWorn(self.setBonusCheck) then
+		status.removeEphemeralEffect("gravitynormalizationarmor")
 		effect.expire()
 	else
-	       -- status.addEphemeralEffect("gravgenfieldarmor2",5)
+		status.addEphemeralEffect("gravitynormalizationarmor")
 		checkWeapons()
 	end
 end
